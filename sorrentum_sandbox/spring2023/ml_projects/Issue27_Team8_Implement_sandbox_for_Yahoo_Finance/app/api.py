@@ -34,11 +34,9 @@ def api_from_db(start_time, end_time, granularity, ticker_list):
     query = (
         "select * from "
         + table_name
-        + " where timestamp >= '"
-        + start_time
-        + "' and timestamp <= '"
-        + end_time
-        + "' and currency_pair in ("
+        + " where timestamp >= ?"
+        + " and timestamp <= ?"
+        + " and currency_pair in ("
     )
 
     for i in ticker_list:
@@ -55,7 +53,7 @@ def api_from_db(start_time, end_time, granularity, ticker_list):
     )
 
     cursor = connection.cursor()
-    cursor.execute(query)
+    cursor.execute(query, (start_time, end_time, ))
     data = pd.DataFrame(cursor.fetchall())
     cursor.close()
     connection.close()
