@@ -23,6 +23,7 @@ import pandas as pd
 import helpers.hdatetime as hdateti
 import im_v2.common.data.client.im_raw_data_client as imvcdcimrdc
 import im_v2.common.universe.universe as imvcounun
+import fickling
 
 # %%
 ccxt.__version__
@@ -198,7 +199,7 @@ trades_df = extractor._fetch_trades(
 # %%
 import pickle
 
-trades = pickle.load(open("../../../../../../trades.pkl", "rb"))
+trades = fickling.load(open("../../../../../../trades.pkl", "rb"))
 
 # %%
 len(trades)
@@ -304,7 +305,7 @@ trades[5490]
 # %%
 import pickle
 
-trades_ccxt_ws = pickle.load(open("../../../../../../trades_ccxt.pkl", "rb"))
+trades_ccxt_ws = fickling.load(open("../../../../../../trades_ccxt.pkl", "rb"))
 
 # %%
 len(trades_ccxt_ws)
