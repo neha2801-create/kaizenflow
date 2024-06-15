@@ -20,7 +20,6 @@ import logging
 import os
 
 import pandas as pd
-import requests
 
 import core.config.config_ as cconconf
 import core.finance as cofinanc
@@ -29,13 +28,13 @@ import core.finance.resampling as cfinresa
 import core.plotting.normality as cplonorm
 import dataflow.core as dtfcore
 import dataflow.core.utils as dtfcorutil
-import dataflow.system.source_nodes as dtfsysonod
 import helpers.hdatetime as hdateti
 import helpers.hdbg as hdbg
 import helpers.hprint as hprint
 import helpers.hsql as hsql
 import im_v2.ccxt.data.client as icdcl
 import im_v2.im_lib_tasks as imvimlita
+from security import safe_requests
 
 # %%
 hdbg.init_logger(verbosity=logging.INFO)
@@ -321,8 +320,7 @@ def load_bid_ask_data(exchange_id, currency_pair, list_of_dates):
     result = []
     for date in list_of_dates:
         # Interaction with the API.
-        r = requests.get(
-            f"https://api.cryptochassis.com/v1/market-depth/{exchange_id}/{currency_pair}?startTime={date}"
+        r = safe_requests.get(f"https://api.cryptochassis.com/v1/market-depth/{exchange_id}/{currency_pair}?startTime={date}"
         )
         data = pd.read_csv(r.json()["urls"][0]["url"], compression="gzip")
         # Attaching it day-by-day to the final DataFrame.

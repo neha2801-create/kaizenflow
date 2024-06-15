@@ -26,7 +26,6 @@ import logging
 import os
 
 import pandas as pd
-import requests
 
 import core.statistics as costatis
 import helpers.hdatetime as hdateti
@@ -36,6 +35,7 @@ import helpers.hpandas as hpandas
 import helpers.hprint as hprint
 import helpers.hs3 as hs3
 import im_v2.crypto_chassis.data.client.crypto_chassis_clients as imvccdcccc
+from security import safe_requests
 
 # %%
 hdbg.init_logger(verbosity=logging.INFO)
@@ -99,8 +99,7 @@ def _load_crypto_chassis_ohlcv(exchange_id: str, currency_pair: str):
     """
     Load data from CryptoChassis API.
     """
-    r = requests.get(
-        f"https://api.cryptochassis.com/v1/ohlc/{exchange_id}/{currency_pair}?startTime=0"
+    r = safe_requests.get(f"https://api.cryptochassis.com/v1/ohlc/{exchange_id}/{currency_pair}?startTime=0"
     )
     df = pd.read_csv(r.json()["historical"]["urls"][0]["url"], compression="gzip")
     df["time_seconds"] = df["time_seconds"].apply(

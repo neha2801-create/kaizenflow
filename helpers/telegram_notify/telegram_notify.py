@@ -6,7 +6,6 @@ import helpers.telegram_notify.telegram_notify as htnoteno
 
 import json
 import logging
-import os
 import os.path
 import re
 import sys
@@ -18,6 +17,7 @@ import requests
 import requests.compat as rcompa
 
 import helpers.telegram_notify.config as htenocon
+from security import safe_requests
 
 _LOG = logging.getLogger(__name__)
 
@@ -83,8 +83,7 @@ def _get_launcher_name() -> str:
         kernel_id = match.group(1)
         servers = ihnb.list_running_servers()
         for ss in servers:
-            response = requests.get(
-                rcompa.urljoin(ss["url"], "api/sessions"),  # type: ignore
+            response = safe_requests.get(rcompa.urljoin(ss["url"], "api/sessions"),  # type: ignore
                 params={"token": ss.get("token", "")},
             )
             for nn in json.loads(response.text):

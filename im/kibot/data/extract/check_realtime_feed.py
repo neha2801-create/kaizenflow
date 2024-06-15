@@ -13,10 +13,9 @@ import im.kibot.data.extract.check_realtime_feed as imkdecrefe
 import logging
 import time
 
-import requests
-
 import im.kibot.base.command as imkibacom
 import im.kibot.data.config as imkidacon
+from security import safe_requests
 
 _LOG = logging.getLogger(__name__)
 
@@ -34,8 +33,7 @@ class CheckReadtimeFeedCommand(imkibacom.KibotCommand):
     def customize_run(self) -> int:
         # Download file.
         while True:
-            response = requests.get(
-                url=imkidacon.API_ENDPOINT,
+            response = safe_requests.get(url=imkidacon.API_ENDPOINT,
                 params=dict(
                     action="history", symbol="MSFT", interval="1", period="2"
                 ),

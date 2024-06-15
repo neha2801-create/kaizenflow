@@ -24,6 +24,7 @@ import requests
 
 import helpers.hdbg as hdbg
 import helpers.hparser as hparser
+from security import safe_requests
 
 _LOG = logging.getLogger(__name__)
 
@@ -50,15 +51,14 @@ def _invite_collaborator(
         "collaborators/{github_username}",
     )
     headers = {"Authorization": "Bearer " + access_token}
-    response = requests.get(collaborator_check_url, headers=headers, timeout=10)
+    response = safe_requests.get(collaborator_check_url, headers=headers, timeout=10)
     status_code = response.status_code
     if status_code == 204:
         # Get GH collaborator status.
         collaborator_permissions_url = "/".join(
             [collaborator_check_url, "permission"]
         )
-        response = requests.get(
-            collaborator_permissions_url, headers=headers, timeout=10
+        response = safe_requests.get(collaborator_permissions_url, headers=headers, timeout=10
         )
         status_code = response.status_code
         if status_code == 200:
@@ -83,7 +83,7 @@ def _invite_collaborator(
             repo_name,
             "invitations",
         )
-        response = requests.get(invitation_check_url, headers=headers, timeout=10)
+        response = safe_requests.get(invitation_check_url, headers=headers, timeout=10)
         status_code = response.status_code
         if status_code == 200:
             # Check if an invitation was sent to a user that is already a GH collaborator.

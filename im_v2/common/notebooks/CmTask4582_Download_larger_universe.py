@@ -16,7 +16,6 @@
 # # Imports
 
 # %% hidden=true
-import json
 
 
 import ccxt
@@ -26,18 +25,11 @@ import requests
 import logging
 
 import pandas as pd
-
-import helpers.hdatetime as hdateti
 import helpers.hdbg as hdbg
 import helpers.henv as henv
-import helpers.hpandas as hpandas
 import helpers.hprint as hprint
-import im_v2.ccxt.data.extract.extractor as imvcdexex
 import im_v2.common.data.client.im_raw_data_client as imvcdcimrdc
-import im_v2.common.data.qa.dataset_validator as imvcdqdava
-import im_v2.common.data.qa.qa_check as imvcdqqach
-import im_v2.common.universe as ivcu
-import im_v2.common.universe.universe as imvcounun
+from security import safe_requests
 
 # %load_ext autoreload
 # %autoreload 2
@@ -73,8 +65,7 @@ headers = {
 }
 
 # %% hidden=true
-result = requests.get(
-    latest_url,
+result = safe_requests.get(latest_url,
     params=parameters,
     headers=headers
 )
