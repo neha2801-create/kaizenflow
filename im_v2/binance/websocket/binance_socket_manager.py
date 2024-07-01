@@ -5,7 +5,6 @@ import im_v2.binance.websocket.binance_socket_manager as imvbwbsoma
 """
 
 import logging
-import random
 import threading
 import time
 from typing import Optional
@@ -18,6 +17,7 @@ from websocket import (
 )
 
 import im_v2.binance.websocket.utils as imvbiweut
+import secrets
 
 
 class BinanceSocketManager(threading.Thread):
@@ -102,7 +102,7 @@ class BinanceSocketManager(threading.Thread):
                     "Subscribing Again, Attempts left %s", self.max_attempts
                 )
                 # Sleep for some random time to cool things down.
-                sleep_secs = random.randint(2,5)
+                sleep_secs = secrets.SystemRandom().randint(2,5)
                 time.sleep(sleep_secs)
                 self._callback(self.on_disconnect)
                 continue

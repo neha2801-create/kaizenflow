@@ -9,7 +9,6 @@ import functools
 import logging
 import os
 import pprint
-import random
 import re
 import string
 from typing import Dict, List, Match, Optional, Tuple, cast
@@ -19,6 +18,7 @@ import helpers.henv as henv
 import helpers.hprint as hprint
 import helpers.hserver as hserver
 import helpers.hsystem as hsystem
+import secrets
 
 # This module can depend only on:
 # - Python standard modules
@@ -856,7 +856,7 @@ def get_head_hash(dir_name: str = ".", short_hash: bool = False) -> str:
         output = output + "-" + amp_hash
     else:
         random_string = "".join(
-            random.choices(string.ascii_lowercase + string.digits, k=3)
+            secrets.SystemRandom().choices(string.ascii_lowercase + string.digits, k=3)
         )
         output = output + "-" + random_string
     return output

@@ -1,7 +1,6 @@
 import datetime
 import logging
 import os
-import random
 from typing import Any, List, Optional, Tuple
 
 import pandas as pd
@@ -18,6 +17,7 @@ import helpers.hprint as hprint
 import helpers.hs3 as hs3
 import helpers.hunit_test as hunitest
 import im_v2.common.test as imvct
+import secrets
 
 _LOG = logging.getLogger(__name__)
 
@@ -44,7 +44,7 @@ def _get_df(date: datetime.date, seed: int = 42) -> pd.DataFrame:
     df_idx = pd.date_range(start_date, end_date, freq="5T")
     _LOG.debug("df_idx=[%s, %s]", min(df_idx), max(df_idx))
     _LOG.debug("len(df_idx)=%s", len(df_idx))
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     # For each instruments generate random data.
     df = []
     for idx, inst in enumerate(instruments):
@@ -52,8 +52,8 @@ def _get_df(date: datetime.date, seed: int = 42) -> pd.DataFrame:
             {
                 "idx": idx,
                 "instr": inst,
-                "val1": [random.randint(0, 100) for _ in range(len(df_idx))],
-                "val2": [random.randint(0, 100) for _ in range(len(df_idx))],
+                "val1": [secrets.SystemRandom().randint(0, 100) for _ in range(len(df_idx))],
+                "val2": [secrets.SystemRandom().randint(0, 100) for _ in range(len(df_idx))],
             },
             index=df_idx,
         )

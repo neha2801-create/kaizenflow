@@ -21,7 +21,6 @@
 # %%
 import logging
 import os
-import random
 
 import pandas as pd
 import pyarrow as pa
@@ -30,6 +29,7 @@ import pyarrow.parquet as pq
 
 import helpers.hdbg as hdbg
 import helpers.hio as hio
+import secrets
 
 hdbg.init_logger(verbosity=logging.INFO)
 _LOG = logging.getLogger(__name__)
@@ -53,7 +53,7 @@ def get_df() -> pd.DataFrame:
         pd.Timestamp("2000-01-01"), pd.Timestamp("2000-01-15"), freq="1D"
     )
     # print(df_idx)
-    random.seed(1000)
+    secrets.SystemRandom().seed(1000)
 
     df = []
     for idx, inst in enumerate(instruments):
@@ -61,8 +61,8 @@ def get_df() -> pd.DataFrame:
             {
                 "idx": idx,
                 "instr": inst,
-                "val1": [random.randint(0, 100) for k in range(len(df_idx))],
-                "val2": [random.randint(0, 100) for k in range(len(df_idx))],
+                "val1": [secrets.SystemRandom().randint(0, 100) for k in range(len(df_idx))],
+                "val2": [secrets.SystemRandom().randint(0, 100) for k in range(len(df_idx))],
             },
             index=df_idx,
         )
