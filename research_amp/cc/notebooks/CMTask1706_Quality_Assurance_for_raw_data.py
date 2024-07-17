@@ -68,8 +68,8 @@ historical_client = icdcl.CcxtHistoricalPqByTileClient(
 # %%
 def load_crypto_chassis_ohlcv(exhange_id, currency_pair):
     r = requests.get(
-        f"https://api.cryptochassis.com/v1/ohlc/{exhange_id}/{currency_pair}?startTime=0"
-    )
+        f"https://api.cryptochassis.com/v1/ohlc/{exhange_id}/{currency_pair}?startTime=0", 
+    timeout=60)
     df = pd.read_csv(r.json()["historical"]["urls"][0]["url"], compression="gzip")
     df["time_seconds"] = df["time_seconds"].apply(
         lambda x: hdateti.convert_unix_epoch_to_timestamp(x, unit="s")
@@ -357,7 +357,7 @@ start = 1564617600
 # 2019-08-31 23:59:59 GMT+0000
 end = 1567295999
 url = get_url(symbol, start, end)
-response = requests.get(url)
+response = requests.get(url, timeout=60)
 # check if data in response.
 response.text[:100]
 
@@ -379,7 +379,7 @@ start = 1580425200
 # 2020-01-31 23:59:59 GMT+0000
 end = 1580515199
 url = get_url(symbol, start, end)
-response = requests.get(url)
+response = requests.get(url, timeout=60)
 # check if data in response.
 response.text[:100]
 
@@ -398,7 +398,7 @@ start = 1640818800
 # 2021-12-30 23:59:59 GMT+0000
 end = 1640908799
 url = get_url(symbol, start, end)
-response = requests.get(url)
+response = requests.get(url, timeout=60)
 # check if data in response.
 response.text[:100]
 

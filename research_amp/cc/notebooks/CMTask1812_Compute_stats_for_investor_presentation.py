@@ -307,7 +307,7 @@ display(all_cumul_der_volume.head(5))
 # It is updated with every re-run and is taken from Coinmarketcap API.
 # Contains descriptive statistics about cryptocurrencies.
 url = "https://api.coinmarketcap.com/data-api/v3/cryptocurrency/listing?start=1&limit=10081&sortBy=market_cap&sortType=desc&convert=USD&cryptoType=all&tagType=all&audited=false&aux=name,volume_24h"
-response = requests.get(url)
+response = requests.get(url, timeout=60)
 
 crypto_data = json.loads(response.text)
 crypto_df = pd.json_normalize(
