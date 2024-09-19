@@ -9,12 +9,11 @@ import argparse
 import inspect
 import sys
 
-import requests
-
 import helpers.hdbg as hdbg
 import helpers.hio as hio
 import helpers.hparser as hparser
 import im.kibot.metadata.config as imkimecon
+from security import safe_requests
 
 
 class KibotCommand:
@@ -117,7 +116,7 @@ class KibotCommand:
         Login to Kibot API.
         """
 
-        response = requests.get(
+        response = safe_requests.get(
             url=imkimecon.API_ENDPOINT,
             params=dict(
                 action="login",

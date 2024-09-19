@@ -38,6 +38,7 @@ import im_v2.common.data.qa.dataset_validator as imvcdqdava
 import im_v2.common.data.qa.qa_check as imvcdqqach
 import im_v2.common.universe as ivcu
 import im_v2.common.universe.universe as imvcounun
+from security import safe_requests
 
 # %load_ext autoreload
 # %autoreload 2
@@ -73,7 +74,7 @@ headers = {
 }
 
 # %% hidden=true
-result = requests.get(
+result = safe_requests.get(
     latest_url,
     params=parameters,
     headers=headers

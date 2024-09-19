@@ -9,11 +9,10 @@ import os
 import re
 from typing import Optional, Tuple
 
-import requests
-
 import helpers.hdbg as hdbg
 import helpers.hgit as hgit
 import helpers.hsystem as hsystem
+from security import safe_requests
 
 _LOG = logging.getLogger(__name__)
 
@@ -23,7 +22,7 @@ def check_url(url: str) -> None:
     Check that an URL responds.
     """
     try:
-        request = requests.get(url)
+        request = safe_requests.get(url)
         exists = request.status_code == 200
         # pylint: disable=broad-except
     except Exception:
