@@ -28,12 +28,12 @@
 # %load_ext autoreload
 # %autoreload 2
 
-import random
 
 import numpy as np
 import pandas as pd
 
 import research_amp.lob.lob_lib as ralololi
+import secrets
 
 # %% [markdown]
 # # Generate the data
@@ -214,7 +214,7 @@ ec_surplus_df.hist(bins=20)
 # MC simulation for obtaining economic surplus with random N.
 ec_surplus_df_N = pd.DataFrame()
 for i in range(1, 1000):
-    N = random.choice(range(5, 1000))
+    N = secrets.choice(range(5, 1000))
     ba_raw = ralololi.get_data(N)
     sd = ralololi.get_supply_demand_curve(ba_raw)
     eq_p, _ = ralololi.find_equilibrium(sd, print_graph=False)
@@ -245,7 +245,7 @@ def generate_three_numbers_with_given_sum(
     """
     Randomly generate three numbers which sum will equal to the given number.
     """
-    numbers = sorted(random.sample(range(final_sum), 2))
+    numbers = sorted(secrets.SystemRandom().sample(range(final_sum), 2))
     num1 = numbers[0]
     num2 = numbers[1] - numbers[0]
     num3 = final_sum - numbers[1]
@@ -269,7 +269,7 @@ def simulate_economic_surplus(N: int):
 ec_surplus_df_N_markets = pd.DataFrame()
 for i in range(1, 1000):
     # Generate the number of participants in a "big" market.
-    N = random.choice(range(100, 500))
+    N = secrets.choice(range(100, 500))
     # Simulate economic surplus for a "big" market.
     total_surplus_big, eq_p_big, eq_q_big = simulate_economic_surplus(N)
     ec_surplus_df_N_markets.loc[i, "N_big"] = N

@@ -6,7 +6,6 @@ import core.finance.tradability as cfintrad
 
 
 import logging
-import random
 from typing import Dict
 
 import numpy as np
@@ -16,6 +15,7 @@ from numpy.typing import ArrayLike
 
 import helpers.hdbg as hdbg
 import helpers.hpandas as hpandas
+import secrets
 
 _LOG = logging.getLogger(__name__)
 
@@ -76,7 +76,7 @@ def get_predictions(
     """
     hdbg.dassert_lte(0, hit_rate)
     hdbg.dassert_lte(hit_rate, 1)
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     n = df.shape[0]
     rets = df[ret_col].values
     # Mask contains 1 for a desired hit and -1 for a miss.
@@ -85,7 +85,7 @@ def get_predictions(
     # print(len(mask))
     mask = np.asarray(mask)
     # Randomize the location of the outcomes.
-    random.shuffle(mask)
+    secrets.SystemRandom().shuffle(mask)
     # Construct predictions using the sign of the actual returns.
     pred = pd.Series(np.sign(rets) * mask)
     # Change the index for easy attachment to initial DataFrame.
@@ -186,7 +186,7 @@ def simulate_pnls_for_set_of_hit_rates(
     :return: corresponding `PnL` for each `hit_rate`
     """
     # Every seed corresponds to a different "model".
-    seed = random.randint(0, 100)
+    seed = secrets.SystemRandom().randint(0, 100)
     # Placeholder for the results.
     results = {}
     # Each value of hit rate is making its own PnL value.
