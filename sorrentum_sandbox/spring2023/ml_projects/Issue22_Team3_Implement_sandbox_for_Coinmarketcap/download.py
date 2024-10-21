@@ -59,7 +59,7 @@ class CMCRestApiDownloader(ssacodow.DataDownloader):
                     "Accepts": "application/json",
                 },
                 data={},
-            )
+            timeout=60)
 
             if response.status_code == 200:
                 _LOG.info("Request successful!")
