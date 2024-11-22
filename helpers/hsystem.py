@@ -22,6 +22,7 @@ import helpers.hdbg as hdbg
 import helpers.hintrospection as hintros
 import helpers.hlogging as hloggin
 import helpers.hprint as hprint
+from security import safe_command
 
 # This module can depend only on:
 # - Python standard modules
@@ -222,8 +223,7 @@ def _system(
         # print("  ==> cmd=%s" % cmd)
         with hloggin.set_level(_LOG, logging.DEBUG):
             _LOG.debug("> %s", cmd)
-        with subprocess.Popen(
-            cmd, shell=True, executable="/bin/bash", stdout=stdout, stderr=stderr
+        with safe_command.run(subprocess.Popen, cmd, shell=True, executable="/bin/bash", stdout=stdout, stderr=stderr
         ) as p:
             output = ""
             if blocking:
