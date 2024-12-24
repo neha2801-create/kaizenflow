@@ -18,7 +18,6 @@ import os
 from typing import Callable, Iterable, List
 
 import joblib
-import requests
 import tqdm
 
 import helpers.hio as hio
@@ -26,6 +25,7 @@ import helpers.hs3 as hs3
 import helpers.hsystem as hsystem
 import im.kibot.base.command as imkibacom
 import im.kibot.metadata.config as imkimecon
+from security import safe_requests
 
 # #############################################################################
 
@@ -65,7 +65,7 @@ def _get_symbols_list() -> List[str]:
     """
     Get a list of symbols that have adjustments from Kibot.
     """
-    response = requests.get(
+    response = safe_requests.get(
         url=imkimecon.API_ENDPOINT,
         params=dict(action="adjustments", symbolsonly="1"),
     )
@@ -80,7 +80,7 @@ def _download_adjustments_data_for_symbol(symbol: str, tmp_dir: str) -> None:
     """
     Download adjustments file for a symbol and save to s3.
     """
-    response = requests.get(
+    response = safe_requests.get(
         url=imkimecon.API_ENDPOINT,
         params=dict(action="adjustments", symbol=symbol),
     )
