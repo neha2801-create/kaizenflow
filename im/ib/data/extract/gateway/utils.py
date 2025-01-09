@@ -7,10 +7,10 @@ import im.ib.data.extract.gateway.utils as imidegaut
 import datetime
 import logging
 import os
-import random
 from typing import Dict, List, Optional, Tuple, Union, cast
 
 import helpers.hpandas as hpandas
+import secrets
 
 try:
     import ib_insync
@@ -50,8 +50,7 @@ def get_free_client_id(max_attempts: Optional[int]) -> int:
     """
     free_client_id = -1
     max_attempts = 1 if max_attempts is None else max_attempts
-    for i in random.sample(
-        range(1, max_attempts + 1),
+    for i in secrets.SystemRandom().sample(range(1, max_attempts + 1),
         max_attempts,
     ):
         try:
