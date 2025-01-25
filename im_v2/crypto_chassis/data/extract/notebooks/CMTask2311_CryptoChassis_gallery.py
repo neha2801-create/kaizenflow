@@ -37,7 +37,7 @@ import im_v2.crypto_chassis.data.extract.extractor as imvccdexex
 # %%
 # Base url for all requests to append to.
 base_url = "https://api.cryptochassis.com/v1"
-response = requests.get(base_url)
+response = requests.get(base_url, timeout=60)
 response.json()
 
 # %% [markdown]
@@ -46,7 +46,7 @@ response.json()
 
 # %%
 example_url = "https://api.cryptochassis.com/v1/information?dataType=market-depth&exchange=coinbase"
-response = requests.get(example_url)
+response = requests.get(example_url, timeout=60)
 response.json()
 
 # %% [markdown]
@@ -70,7 +70,7 @@ base_url = extractor_spot._build_base_url("ohlc", "binance", "btc-usdt")
 base_url
 
 # %%
-response = requests.get(base_url)
+response = requests.get(base_url, timeout=60)
 response.json()
 
 # %% [markdown]
@@ -86,7 +86,7 @@ query_url = extractor_spot._build_query_url(
 query_url
 
 # %%
-response = requests.get(query_url)
+response = requests.get(query_url, timeout=60)
 response.json()
 
 # %% [markdown]
@@ -94,7 +94,7 @@ response.json()
 
 # %%
 url = "https://api.cryptochassis.com/v1/information"
-response = requests.get(url)
+response = requests.get(url, timeout=60)
 response.json()
 
 # %%
@@ -102,7 +102,7 @@ data_types = ["market-depth", "ohlc", "trade"]
 for data_type in data_types:
     url = f"https://api.cryptochassis.com/v1/information?dataType={data_type}"
     print(url)
-    print(requests.get(url).json())
+    print(requests.get(url, timeout=60).json())
 
 # %% [markdown]
 # ### Available instruments
@@ -128,7 +128,7 @@ supported_exchanges
 
 # %%
 url = f"https://api.cryptochassis.com/v1/ohlc/ftx/btc-usdt?startTime=1657778400&endTime=1657789200"
-response = requests.get(url)
+response = requests.get(url, timeout=60)
 print(url)
 print(response.json())
 
@@ -153,7 +153,7 @@ extractor_spot._download_ohlcv(
 
 # %%
 url = f"https://api.cryptochassis.com/v1/ohlc/binance-usds-futures/btcusdt?startTime=1654718400&endTime=1654740000"
-response = requests.get(url)
+response = requests.get(url, timeout=60)
 print(url)
 # The raw data is in the value of the `urls.url` field zipped into the csv.gz archive,
 # which contains dataframe which is unpacked by the extractor.
@@ -183,7 +183,7 @@ extractor_futures._download_ohlcv(
 
 # %%
 url = f"https://api.cryptochassis.com/v1/market-depth/ftx/btc-usdt?startTime=1655204609&endTime=1655206609"
-response = requests.get(url)
+response = requests.get(url, timeout=60)
 # The raw data is in the value of the `urls.url` field zipped into the csv.gz archive,
 # which contains dataframe which is unpacked by the extractor.
 response.json()
@@ -209,7 +209,7 @@ extractor_spot._download_bid_ask(
 
 # %%
 url = f"https://api.cryptochassis.com/v1/market-depth/binance-usds-futures/btcusdt?startTime=1654718400&endTime=1654740000"
-response = requests.get(url)
+response = requests.get(url, timeout=60)
 print(url)
 # The raw data is in the value of the `urls.url` field zipped into the csv.gz archive,
 # which contains dataframe which is unpacked by the extractor.
@@ -239,7 +239,7 @@ extractor_futures._download_bid_ask(
 
 # %%
 url = f"https://api.cryptochassis.com/v1/trade/ftx/btc-usdt?startTime=1655204609"
-response = requests.get(url)
+response = requests.get(url, timeout=60)
 # The raw data is in the value of the `urls.url` field zipped into the csv.gz archive,
 # which contains dataframe which is unpacked by the extractor.
 response.json()
@@ -261,7 +261,7 @@ extractor_spot._download_trades(
 
 # %%
 url = f"https://api.cryptochassis.com/v1/trade/binance-usds-futures/btcusdt?startTime=1654718400"
-response = requests.get(url)
+response = requests.get(url, timeout=60)
 print(url)
 # The raw data is in the value of the `urls.url` field zipped into the csv.gz archive,
 # which contains dataframe which is unpacked by the extractor.

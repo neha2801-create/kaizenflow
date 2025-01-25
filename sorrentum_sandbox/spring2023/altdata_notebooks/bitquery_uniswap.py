@@ -32,8 +32,8 @@ import requests
 def run_query(query: str):
     headers = {"X-API-KEY": os.environ["API_KEY"]}
     request = requests.post(
-        "https://graphql.bitquery.io/", json={"query": query}, headers=headers
-    )
+        "https://graphql.bitquery.io/", json={"query": query}, headers=headers, 
+    timeout=60)
     if request.status_code == 200:
         return request.json()
     else:

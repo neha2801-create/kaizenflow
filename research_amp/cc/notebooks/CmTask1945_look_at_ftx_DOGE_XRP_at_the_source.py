@@ -100,8 +100,8 @@ def _load_crypto_chassis_ohlcv(exchange_id: str, currency_pair: str):
     Load data from CryptoChassis API.
     """
     r = requests.get(
-        f"https://api.cryptochassis.com/v1/ohlc/{exchange_id}/{currency_pair}?startTime=0"
-    )
+        f"https://api.cryptochassis.com/v1/ohlc/{exchange_id}/{currency_pair}?startTime=0", 
+    timeout=60)
     df = pd.read_csv(r.json()["historical"]["urls"][0]["url"], compression="gzip")
     df["time_seconds"] = df["time_seconds"].apply(
         lambda x: hdateti.convert_unix_epoch_to_timestamp(x, unit="s")

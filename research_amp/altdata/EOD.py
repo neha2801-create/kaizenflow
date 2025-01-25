@@ -49,7 +49,7 @@ offset = "0"
 limit = "10"
 
 query = eod_base % (api_token, token, offset, limit)
-response = requests.get(query).json()
+response = requests.get(query, timeout=60).json()
 
 # %%
 response[0]
@@ -66,7 +66,7 @@ offset = "0"
 limit = "10"
 
 query = eod_base % (api_token, token, offset, limit)
-response = requests.get(query).json()
+response = requests.get(query, timeout=60).json()
 
 # %% [markdown]
 # Let's evaluate the quality of sentiment analysis.

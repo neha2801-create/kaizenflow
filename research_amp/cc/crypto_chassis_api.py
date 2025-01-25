@@ -39,8 +39,8 @@ def load_crypto_chassis_ohlcv_for_one_symbol(full_symbol: str) -> pd.DataFrame:
     )
     # Build a request.
     r = requests.get(
-        f"https://api.cryptochassis.com/v1/ohlc/{cc_exchange_id}/{cc_currency_pair}?startTime=0"
-    )
+        f"https://api.cryptochassis.com/v1/ohlc/{cc_exchange_id}/{cc_currency_pair}?startTime=0", 
+    timeout=60)
     # Get url with data.
     url = r.json()["historical"]["urls"][0]["url"]
     # Read the data.
@@ -129,8 +129,8 @@ def load_bid_ask_data_for_one_symbol(
         )
         # Interaction with the API.
         r = requests.get(
-            f"https://api.cryptochassis.com/v1/market-depth/{cc_exchange_id}/{cc_currency_pair}?startTime={date}"
-        )
+            f"https://api.cryptochassis.com/v1/market-depth/{cc_exchange_id}/{cc_currency_pair}?startTime={date}", 
+        timeout=60)
         data = pd.read_csv(r.json()["urls"][0]["url"], compression="gzip")
         # Attaching it day-by-day to the final DataFrame.
         result.append(data)

@@ -23,7 +23,7 @@ def check_url(url: str) -> None:
     Check that an URL responds.
     """
     try:
-        request = requests.get(url)
+        request = requests.get(url, timeout=60)
         exists = request.status_code == 200
         # pylint: disable=broad-except
     except Exception:
