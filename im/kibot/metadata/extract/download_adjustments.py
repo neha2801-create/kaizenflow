@@ -68,7 +68,7 @@ def _get_symbols_list() -> List[str]:
     response = requests.get(
         url=imkimecon.API_ENDPOINT,
         params=dict(action="adjustments", symbolsonly="1"),
-    )
+    timeout=60)
 
     symbols = response.text.splitlines()
 
@@ -83,7 +83,7 @@ def _download_adjustments_data_for_symbol(symbol: str, tmp_dir: str) -> None:
     response = requests.get(
         url=imkimecon.API_ENDPOINT,
         params=dict(action="adjustments", symbol=symbol),
-    )
+    timeout=60)
 
     file_name = f"{symbol}.txt"
     file_path = os.path.join(tmp_dir, imkimecon.ADJUSTMENTS_SUB_DIR, file_name)
