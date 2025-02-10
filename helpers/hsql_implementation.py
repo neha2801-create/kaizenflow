@@ -265,8 +265,8 @@ def get_indexes(connection: DbConnection) -> pd.DataFrame:
     tables = get_table_names(connection)
     cursor = connection.cursor()
     for table in tables:
-        query = f"""SELECT * FROM pg_indexes WHERE tablename = '{table}' """
-        cursor.execute(query)
+        query = """SELECT * FROM pg_indexes WHERE tablename = ? """
+        cursor.execute(query, (table, ))
         z = cursor.fetchall()
         res.append(pd.DataFrame(z))
     tmp: pd.DataFrame = pd.concat(res)
@@ -290,11 +290,11 @@ def disconnect_all_clients(connection: DbConnection) -> None:
     # From https://stackoverflow.com/questions/36502401
     # Not sure this will work in our case, since it might kill our own connection.
     dbname = connection.info.host
-    query = f"""
+    query = """
         SELECT pg_terminate_backend(pid)
             FROM pg_stat_activity
-            WHERE datname = '{dbname}';"""
-    connection.cursor().execute(query)
+            WHERE datname = ?;"""
+    connection.cursor().execute(query, (dbname, ))
 
 
 # #############################################################################
@@ -462,12 +462,12 @@ def get_table_columns(connection: DbConnection, table_name: str) -> List[str]:
     """
     Get column names for given table.
     """
-    query = f"""
+    query = """
         SELECT column_name
             FROM information_schema.columns
-            WHERE TABLE_NAME = '{table_name}'"""
+            WHERE TABLE_NAME = ?"""
     cursor = connection.cursor()
-    cursor.execute(query)
+    cursor.execute(query, (table_name, ))
     columns = [x[0] for x in cursor.fetchall()]
     return columns
 
@@ -911,7 +911,6 @@ async def wait_for_change_in_number_of_rows(
     :param tag: name of the caller function
     :return: number of new rows found
     """
-    num_rows = get_num_rows(db_connection, table_name)
 
     def _is_number_of_rows_changed() -> hasynci.PollOutput:
         new_num_rows = get_num_rows(db_connection, table_name)
@@ -931,6 +930,5 @@ async def wait_for_change_in_number_of_rows(
         tag=tag,
         **poll_kwargs,
     )
-    _ = num_iters
     diff_num_rows = cast(int, diff_num_rows)
     return diff_num_rows
