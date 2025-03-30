@@ -6,10 +6,9 @@ import sorrentum_sandbox.examples.ml_projects.Issue24_Team5_Implement_sandbox_fo
 
 import os
 from typing import List
-
-import requests
 from dotenv import load_dotenv
 from models.time_series import DataType, TimeInterval, TimeSeriesData
+from security import safe_requests
 
 load_dotenv()
 
@@ -54,7 +53,7 @@ class AlphaVantage:
         """
 
         url = f"https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={ticker}&apikey={cls.API_KEY}"
-        request = requests.get(url)
+        request = safe_requests.get(url)
         data = request.json()
 
         if data.get("Note"):
@@ -83,7 +82,7 @@ class AlphaVantage:
         """
 
         url = f"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={ticker}&interval={interval}&outputsize=full&apikey={cls.API_KEY}"
-        request = requests.get(url)
+        request = safe_requests.get(url)
         data = request.json()
 
         if data.get("Note"):
@@ -106,7 +105,7 @@ class AlphaVantage:
         """
 
         url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={ticker}&outputsize=full&apikey={cls.API_KEY}"
-        request = requests.get(url)
+        request = safe_requests.get(url)
         data = request.json()
 
         if data.get("Note"):
@@ -129,7 +128,7 @@ class AlphaVantage:
         """
 
         url = f"https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={ticker}&outputsize=full&apikey={cls.API_KEY}"
-        request = requests.get(url)
+        request = safe_requests.get(url)
         data = request.json()
 
         if data.get("Note"):
@@ -152,7 +151,7 @@ class AlphaVantage:
         """
 
         url = f"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={ticker}&outputsize=full&apikey={cls.API_KEY}"
-        request = requests.get(url)
+        request = safe_requests.get(url)
         data = request.json()
 
         if data.get("Note"):
@@ -164,5 +163,5 @@ class AlphaVantage:
     @classmethod
     def get_sentiment_for(cls, ticker: str):
         url = f"https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers={ticker}&apikey={cls.API_KEY}"
-        request = requests.get(url)
+        request = safe_requests.get(url)
         return request.json()

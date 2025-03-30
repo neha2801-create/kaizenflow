@@ -17,8 +17,7 @@
 
 # %% run_control={"marked": true}
 import os
-
-import requests
+from security import safe_requests
 
 # %%
 bearer_token = os.environ["BEARER"]
@@ -38,7 +37,7 @@ def bearer_oauth(r):
 
 
 def connect_to_endpoint(url, params):
-    response = requests.get(url, auth=bearer_oauth, params=params)
+    response = safe_requests.get(url, auth=bearer_oauth, params=params)
     print(response.status_code)
     if response.status_code != 200:
         raise Exception(response.status_code, response.text)

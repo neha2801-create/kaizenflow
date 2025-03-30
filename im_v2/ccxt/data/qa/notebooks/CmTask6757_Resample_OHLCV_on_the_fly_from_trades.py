@@ -23,6 +23,7 @@ import pandas as pd
 import helpers.hdatetime as hdateti
 import im_v2.common.data.client.im_raw_data_client as imvcdcimrdc
 import im_v2.common.universe.universe as imvcounun
+from security import safe_requests
 
 # %%
 ccxt.__version__
@@ -254,9 +255,6 @@ trades[-530:-510]
 # %%
 trades_ts[-32:-12]
 
-# %%
-import requests
-
 
 def fetch_all_trades(symbol, start_time, end_time):
     limit = 1000  # Maximum number of trades per request
@@ -264,7 +262,7 @@ def fetch_all_trades(symbol, start_time, end_time):
 
     while True:
         url = f"https://fapi.binance.com/fapi/v1/aggTrades?symbol={symbol}&startTime={start_time}&endTime={end_time}&limit={limit}"
-        response = requests.get(url)
+        response = safe_requests.get(url)
 
         if response.status_code == 200:
             trades_data = response.json()

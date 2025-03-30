@@ -20,8 +20,7 @@
 
 # %%
 import os
-
-import requests
+from security import safe_requests
 
 # %% [markdown] run_control={"marked": false}
 # Free API key is valid for 20 API requests per day.
@@ -49,7 +48,7 @@ offset = "0"
 limit = "10"
 
 query = eod_base % (api_token, token, offset, limit)
-response = requests.get(query).json()
+response = safe_requests.get(query).json()
 
 # %%
 response[0]
@@ -66,7 +65,7 @@ offset = "0"
 limit = "10"
 
 query = eod_base % (api_token, token, offset, limit)
-response = requests.get(query).json()
+response = safe_requests.get(query).json()
 
 # %% [markdown]
 # Let's evaluate the quality of sentiment analysis.
