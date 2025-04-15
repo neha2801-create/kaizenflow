@@ -5,7 +5,6 @@ import defi.tulip.implementation.supply_demand as dtimsude
 """
 
 import logging
-import random
 from typing import List
 
 import matplotlib.pyplot as plt
@@ -13,6 +12,7 @@ import pandas as pd
 
 import defi.tulip.implementation.order as dtuimord
 import helpers.hdbg as hdbg
+import secrets
 
 _LOG = logging.getLogger(__name__)
 
@@ -42,7 +42,7 @@ def convert_discrete_curve_to_limit_orders(
     :param seed: seed for random sampling
     :return: orders that represent demand or supply curve
     """
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     timestamp = None
     # TODO(Dan): Add asserts for the passed discrete curve `pd.Series`.
     # Get base token and order action from the passed curve name.
@@ -72,7 +72,7 @@ def convert_discrete_curve_to_limit_orders(
         q = q * quantity_scale + quantity_const
         p = p * limit_price_scale + limit_price_const
         # Generate random addresses.
-        deposit_address = random.randint(1, 10)
+        deposit_address = secrets.SystemRandom().randint(1, 10)
         wallet_address = deposit_address
         # Build orders.
         order = dtuimord.Order(
@@ -217,7 +217,7 @@ def get_supply_demand_aggregated_curve(
     :param seed: seed for random sampling
     :return: series of aggregated curve coordinates
     """
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     if type_ == "supply":
         hdbg.dassert_lt(0.0, alpha)
         # Get supply min quantity to set it as a limit.
@@ -238,7 +238,7 @@ def get_supply_demand_aggregated_curve(
     limit_prices = []
     for _ in range(n_orders):
         # Generate random quantity in specified interval.
-        q = random.uniform(min_quantity, max_quantity)
+        q = secrets.SystemRandom().uniform(min_quantity, max_quantity)
         quantities.append(q)
         # Get the corresponging limit price using linear function formula.
         p = alpha * q + beta
@@ -271,7 +271,7 @@ def convert_aggregated_curve_to_limit_orders(
     :param seed: seed for random sampling
     :return: orders that represent demand or supply curve
     """
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     timestamp = None
     # TODO(Dan): Add asserts for the passed agg curve `pd.Series`.
     # Get base token and order action from the passed curve name.
@@ -291,7 +291,7 @@ def convert_aggregated_curve_to_limit_orders(
         # and quantity on market before it.
         order_q = q - quantity_on_market
         # Generate random addresses.
-        deposit_address = random.randint(1, 10)
+        deposit_address = secrets.SystemRandom().randint(1, 10)
         wallet_address = deposit_address
         # Generate orders.
         order = dtuimord.Order(

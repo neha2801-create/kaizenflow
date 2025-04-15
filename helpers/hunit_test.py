@@ -11,7 +11,6 @@ import inspect
 import logging
 import os
 import pprint
-import random
 import re
 import sys
 import traceback
@@ -29,6 +28,7 @@ import helpers.hserver as hserver
 import helpers.hsystem as hsystem
 import helpers.htimer as htimer
 import helpers.hwall_clock_time as hwacltim
+import secrets
 
 # We use strings as type hints (e.g., 'pd.DataFrame') since we are not sure
 # we have the corresponding libraries installed.
@@ -1055,7 +1055,7 @@ class TestCase(unittest.TestCase):
         # Set the random seed.
         random_seed = 20000101
         _LOG.debug("Resetting random.seed to %s", random_seed)
-        random.seed(random_seed)
+        secrets.SystemRandom().seed(random_seed)
         if _HAS_NUMPY:
             _LOG.debug("Resetting np.random.seed to %s", random_seed)
             np.random.seed(random_seed)
