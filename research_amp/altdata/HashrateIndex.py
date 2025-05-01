@@ -25,7 +25,7 @@ import requests
 
 # %% run_control={"marked": false}
 def download_file(link: str):
-    code = requests.get(link).text
+    code = requests.get(link, timeout=60).text
     name = link.split("/")[-1]
     with open(name, "w") as f:
         f.write(code)

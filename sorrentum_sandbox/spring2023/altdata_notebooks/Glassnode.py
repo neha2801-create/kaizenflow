@@ -51,7 +51,7 @@ api_key = ""
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/addresses/active_count",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 display(res.json()[:10])
 
@@ -60,7 +60,7 @@ display(res.json()[:10])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/addresses/sending_count",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %% [markdown]
@@ -72,7 +72,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/blockchain/block_count",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %%
@@ -80,7 +80,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/blockchain/block_size_mean",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %%
@@ -88,7 +88,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/blockchain/block_interval_mean",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %%
@@ -96,7 +96,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/blockchain/utxo_created_value_sum",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %% [markdown]
@@ -108,7 +108,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/distribution/proof_of_reserves_all_latest",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json())
 
 # %%
@@ -116,7 +116,7 @@ display(res.json())
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/distribution/proof_of_reserves",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %% [markdown]
@@ -128,7 +128,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/eth2/staking_total_deposits_count",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %%
@@ -136,7 +136,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/eth2/staking_total_volume_sum",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %% [markdown]
@@ -148,7 +148,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/fees/volume_sum",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %%
@@ -156,7 +156,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/fees/gas_price_mean",
     params={"a": "ETH", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %%
@@ -164,7 +164,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/fees/gas_used_mean",
     params={"a": "ETH", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %% [markdown]
@@ -176,7 +176,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/indicators/sopr",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %%
@@ -184,7 +184,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/indicators/difficulty_ribbon",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %% [markdown]
@@ -196,7 +196,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/institutions/purpose_etf_holdings_sum",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %% [markdown]
@@ -208,7 +208,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/market/marketcap_usd",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %%
@@ -216,7 +216,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/market/price_usd_ohlc",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %% [markdown]
@@ -228,7 +228,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/mining/difficulty_latest",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %%
@@ -236,7 +236,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/mining/hash_rate_mean",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %% [markdown]
@@ -248,7 +248,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/protocols/uniswap_liquidity_latest",
     params={"a": "ETH", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %% [markdown]
@@ -260,7 +260,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/supply/current",
     params={"a": "ETH", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %% [markdown]
@@ -272,7 +272,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/transactions/count",
     params={"a": "ETH", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %%
@@ -280,7 +280,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/transactions/transfers_count",
     params={"a": "ETH", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %%
@@ -288,7 +288,7 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/transactions/size_mean",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])
 
 # %%
@@ -296,5 +296,5 @@ display(res.json()[-10:])
 res = requests.get(
     "https://api.glassnode.com/v1/metrics/transactions/transfers_volume_mean",
     params={"a": "BTC", "api_key": api_key, "timestamp_format": "humanized"},
-)
+timeout=60)
 display(res.json()[-10:])

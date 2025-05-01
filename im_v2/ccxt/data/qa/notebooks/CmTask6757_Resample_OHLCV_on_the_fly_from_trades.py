@@ -264,7 +264,7 @@ def fetch_all_trades(symbol, start_time, end_time):
 
     while True:
         url = f"https://fapi.binance.com/fapi/v1/aggTrades?symbol={symbol}&startTime={start_time}&endTime={end_time}&limit={limit}"
-        response = requests.get(url)
+        response = requests.get(url, timeout=60)
 
         if response.status_code == 200:
             trades_data = response.json()

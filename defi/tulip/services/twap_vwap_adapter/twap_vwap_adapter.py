@@ -46,8 +46,8 @@ def _get_price_volume_data() -> Dict[str, Any]:
     end_time = data.get("end_time", "")
     # Query the CoinGecko API for price data within the specified time range.
     response = requests.get(
-        f"https://api.coingecko.com/api/v3/coins/{symbol}/market_chart/range?vs_currency=eth&from={start_time}&to={end_time}"
-    )
+        f"https://api.coingecko.com/api/v3/coins/{symbol}/market_chart/range?vs_currency=eth&from={start_time}&to={end_time}", 
+    timeout=60)
     if response.status_code >= 400:
         # Process an error.
         error_data = {

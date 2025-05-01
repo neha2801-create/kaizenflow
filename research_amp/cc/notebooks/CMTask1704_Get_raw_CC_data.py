@@ -322,8 +322,8 @@ def load_bid_ask_data(exchange_id, currency_pair, list_of_dates):
     for date in list_of_dates:
         # Interaction with the API.
         r = requests.get(
-            f"https://api.cryptochassis.com/v1/market-depth/{exchange_id}/{currency_pair}?startTime={date}"
-        )
+            f"https://api.cryptochassis.com/v1/market-depth/{exchange_id}/{currency_pair}?startTime={date}", 
+        timeout=60)
         data = pd.read_csv(r.json()["urls"][0]["url"], compression="gzip")
         # Attaching it day-by-day to the final DataFrame.
         result.append(data)

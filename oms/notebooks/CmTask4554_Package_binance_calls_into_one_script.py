@@ -73,8 +73,8 @@ headers = {
 result = requests.get(
     latest_url,
     params=parameters,
-    headers=headers
-)
+    headers=headers, 
+timeout=60)
 
 # %%
 mode = "trade"

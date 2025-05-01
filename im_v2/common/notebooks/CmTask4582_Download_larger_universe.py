@@ -76,8 +76,8 @@ headers = {
 result = requests.get(
     latest_url,
     params=parameters,
-    headers=headers
-)
+    headers=headers, 
+timeout=60)
 
 # %% hidden=true
 data = result.json()["data"]
@@ -120,7 +120,7 @@ headers = {
   'Content-Type': 'application/json'
 }
 
-response = requests.request("GET", url, headers=headers, data=payload)
+response = requests.request("GET", url, headers=headers, data=payload, timeout=60)
 
 # %% hidden=true
 symbols = [symbol for symbol in response.json()["symbols"] if symbol["status"] == "TRADING"]

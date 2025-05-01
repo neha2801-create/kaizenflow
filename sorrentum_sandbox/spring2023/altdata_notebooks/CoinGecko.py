@@ -198,7 +198,7 @@ cg.get_exchanges_tickers_by_id(binance_id, **kwargs)
 # %% run_control={"marked": true}
 # Trying access via `requests`.
 endpoint_url = "http://api.coingecko.com/api/v3/exchanges/binance/tickers/"
-response = requests.get(endpoint_url)
+response = requests.get(endpoint_url, timeout=60)
 data = response.json()
 print(data.keys())
 data["tickers"][:3]
@@ -218,7 +218,7 @@ cg.get_indexes()[10:15]
 # %%
 # Get price info on MOB index for FTX Derivatives.
 endpoint_url = "http://api.coingecko.com/api/v3/indexes/ftx/MOB/"
-response = requests.get(endpoint_url)
+response = requests.get(endpoint_url, timeout=60)
 print(response)
 data = response.json()
 data

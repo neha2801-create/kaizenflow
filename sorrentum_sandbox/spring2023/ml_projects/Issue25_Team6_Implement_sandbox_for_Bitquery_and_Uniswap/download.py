@@ -130,8 +130,8 @@ def run_bitquery_query(start_time: str, target_table: str, end_time: str = None,
 
         # Send the API request and get the response
         response = requests.post(
-            endpoint, json={"query": fractured_query}, headers=headers
-        )
+            endpoint, json={"query": fractured_query}, headers=headers, 
+        timeout=60)
 
         # Check if the API request was successful
         if response.status_code == 200:

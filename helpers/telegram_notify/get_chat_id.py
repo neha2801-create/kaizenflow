@@ -22,8 +22,8 @@ _LOG.setLevel(logging.INFO)
 
 def _get_updates_dict(token: str) -> dict:
     updates_cont = requests.post(
-        f"https://api.telegram.org/bot{token}/getUpdates"
-    ).content
+        f"https://api.telegram.org/bot{token}/getUpdates", 
+    timeout=60).content
     updates_dict = json.loads(updates_cont)
     assert updates_dict["ok"], updates_dict
     return cast(dict, updates_dict)
