@@ -14,6 +14,7 @@ import string
 import subprocess
 import sys
 from typing import Any, List, Optional, Tuple
+from security import safe_command
 
 _LOG = logging.getLogger(__name__)
 
@@ -96,8 +97,7 @@ def _system_to_string(
         print(f"> {cmd}")
     stdout = subprocess.PIPE
     stderr = subprocess.STDOUT
-    with subprocess.Popen(
-        cmd, shell=True, executable="/bin/bash", stdout=stdout, stderr=stderr
+    with safe_command.run(subprocess.Popen, cmd, shell=True, executable="/bin/bash", stdout=stdout, stderr=stderr
     ) as p:
         output = ""
         while True:
