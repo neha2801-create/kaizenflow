@@ -4,11 +4,11 @@
 ##Import requried packages
 import pandas as pd
 import logging
-import requests
 import json
 from pandas import json_normalize
 import warnings
 import psycopg2 as psycop
+from security import safe_requests
 
 warnings.filterwarnings("ignore")
 pd.set_option("display.max_columns", None)
@@ -72,7 +72,7 @@ def downloader(pair, target_table, **kwargs):
     extensions = [issues, yearly_commits]
 
     for m in crypto:
-        common = requests.get(m).json()
+        common = safe_requests.get(m).json()
         d1 = json_normalize(common)
         crypto_name = m.split("/")[-1]
         d1["Crypto"] = crypto_name
@@ -81,7 +81,7 @@ def downloader(pair, target_table, **kwargs):
 
         for n in extensions:
             # Extension---
-            pull = requests.get(m + n).json()
+            pull = safe_requests.get(m + n).json()
             d2 = json_normalize(pull)
             d2["Crypto_Name"] = crypto_name
             d2["Extension"] = n

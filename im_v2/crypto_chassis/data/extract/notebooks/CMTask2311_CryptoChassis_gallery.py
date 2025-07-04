@@ -27,6 +27,7 @@ import requests
 
 import im_v2.common.universe.universe as imvcounun
 import im_v2.crypto_chassis.data.extract.extractor as imvccdexex
+from security import safe_requests
 
 # %% [markdown]
 # ## General endpoints and Extractor methods
@@ -70,7 +71,7 @@ base_url = extractor_spot._build_base_url("ohlc", "binance", "btc-usdt")
 base_url
 
 # %%
-response = requests.get(base_url)
+response = safe_requests.get(base_url)
 response.json()
 
 # %% [markdown]
@@ -86,7 +87,7 @@ query_url = extractor_spot._build_query_url(
 query_url
 
 # %%
-response = requests.get(query_url)
+response = safe_requests.get(query_url)
 response.json()
 
 # %% [markdown]
@@ -102,7 +103,7 @@ data_types = ["market-depth", "ohlc", "trade"]
 for data_type in data_types:
     url = f"https://api.cryptochassis.com/v1/information?dataType={data_type}"
     print(url)
-    print(requests.get(url).json())
+    print(safe_requests.get(url).json())
 
 # %% [markdown]
 # ### Available instruments

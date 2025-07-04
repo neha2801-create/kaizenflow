@@ -8,11 +8,11 @@ import research_amp.cc.crypto_chassis_api as raccchap
 from typing import Any, List, Tuple, Union
 
 import pandas as pd
-import requests
 
 import core.finance.resampling as cfinresa
 import helpers.hdatetime as hdateti
 import im_v2.common.universe as ivcu
+from security import safe_requests
 
 
 def get_exchange_currency_for_api_request(
@@ -38,7 +38,7 @@ def load_crypto_chassis_ohlcv_for_one_symbol(full_symbol: str) -> pd.DataFrame:
         full_symbol
     )
     # Build a request.
-    r = requests.get(
+    r = safe_requests.get(
         f"https://api.cryptochassis.com/v1/ohlc/{cc_exchange_id}/{cc_currency_pair}?startTime=0"
     )
     # Get url with data.
@@ -128,7 +128,7 @@ def load_bid_ask_data_for_one_symbol(
             full_symbol
         )
         # Interaction with the API.
-        r = requests.get(
+        r = safe_requests.get(
             f"https://api.cryptochassis.com/v1/market-depth/{cc_exchange_id}/{cc_currency_pair}?startTime={date}"
         )
         data = pd.read_csv(r.json()["urls"][0]["url"], compression="gzip")

@@ -10,8 +10,8 @@ from functools import wraps
 from typing import Any, Callable, Dict, List, Tuple
 
 import numpy as np
-import requests
 from flask import Flask, abort, jsonify, request
+from security import safe_requests
 
 app = Flask(__name__)
 
@@ -45,7 +45,7 @@ def _get_price_volume_data() -> Dict[str, Any]:
     start_time = data.get("start_time", "")
     end_time = data.get("end_time", "")
     # Query the CoinGecko API for price data within the specified time range.
-    response = requests.get(
+    response = safe_requests.get(
         f"https://api.coingecko.com/api/v3/coins/{symbol}/market_chart/range?vs_currency=eth&from={start_time}&to={end_time}"
     )
     if response.status_code >= 400:

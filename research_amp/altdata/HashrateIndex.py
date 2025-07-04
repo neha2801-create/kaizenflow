@@ -17,15 +17,14 @@
 
 # %%
 import os
-
-import requests
+from security import safe_requests
 
 # %% [markdown]
 # This repository is not python module, we can't install it, so let's download the code.
 
 # %% run_control={"marked": false}
 def download_file(link: str):
-    code = requests.get(link).text
+    code = safe_requests.get(link).text
     name = link.split("/")[-1]
     with open(name, "w") as f:
         f.write(code)

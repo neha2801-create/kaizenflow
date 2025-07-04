@@ -26,6 +26,7 @@ import helpers.hdatetime as hdateti
 import helpers.hdbg as hdbg
 import helpers.hprint as hprint
 import im_v2.ccxt.data.extract.exchange_class as imvcdeexcl
+from security import safe_requests
 
 # %%
 hdbg.init_logger(verbosity=logging.INFO)
@@ -169,7 +170,7 @@ datelist = [str(x.strftime("%Y-%m-%d")) for x in datelist]
 result = []
 for date in datelist:
     # Interaction with the API.
-    r = requests.get(
+    r = safe_requests.get(
         f"https://api.cryptochassis.com/v1/market-depth/binance/btc-usdt?startTime={date}"
     )
     data = pd.read_csv(r.json()["urls"][0]["url"], compression="gzip")
