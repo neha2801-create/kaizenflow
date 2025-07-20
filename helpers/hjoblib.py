@@ -9,7 +9,6 @@ import logging
 import math
 import os
 import pprint
-import random
 import sys
 import traceback
 from functools import wraps
@@ -26,6 +25,7 @@ import helpers.hio as hio
 import helpers.hprint as hprint
 import helpers.htimer as htimer
 import helpers.htqdm as htqdm
+import secrets
 
 # Avoid dependency from other `helpers` modules, such as `helpers.hcache`, to
 # prevent import cycles.
@@ -257,8 +257,8 @@ def randomize_workload(
     workload_func, func_name, tasks = workload
     # Randomize `tasks`.
     seed = seed or 42
-    random.seed(seed)
-    random.shuffle(tasks)
+    secrets.SystemRandom().seed(seed)
+    secrets.SystemRandom().shuffle(tasks)
     # Build a new workload.
     workload = (workload_func, func_name, tasks)
     validate_workload(workload)

@@ -6,9 +6,9 @@ import core.real_time_simple_model as crtisimo
 
 import asyncio
 import datetime
-import random
 
 import helpers.hintrospection as hintros
+import secrets
 
 # start_time = time.time()
 
@@ -28,7 +28,7 @@ def print_message(msg):
 
 
 async def execute_task(max_delay_in_sec):
-    delay_in_sec = random.random() * max_delay_in_sec
+    delay_in_sec = secrets.SystemRandom().random() * max_delay_in_sec
     await asyncio.sleep(delay_in_sec)
 
 

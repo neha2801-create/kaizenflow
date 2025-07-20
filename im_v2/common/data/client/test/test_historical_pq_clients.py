@@ -1,5 +1,4 @@
 import logging
-import random
 from typing import List, Tuple
 
 import pandas as pd
@@ -9,6 +8,7 @@ import helpers.hdatetime as hdateti
 import im_v2.common.data.client as icdc
 import im_v2.common.data.client.historical_pq_clients_example as imvcdchpce
 import im_v2.common.universe as ivcu
+import secrets
 
 _LOG = logging.getLogger(__name__)
 
@@ -760,7 +760,7 @@ class TestHistoricalPqByTileClient3(icdc.ImClientTestCase):
         #  print the `seed_` for reproducibility.
         # Set seed value and log it so that we can reproduce errors.
         _LOG.info("Seed value ='%s'", seed_)
-        random.seed(seed_)
+        secrets.SystemRandom().seed(seed_)
         # Convert boundaries to epochs.
         left_boundary_epoch = hdateti.convert_timestamp_to_unix_epoch(
             left_boundary, unit="h"
@@ -774,10 +774,9 @@ class TestHistoricalPqByTileClient3(icdc.ImClientTestCase):
         # Integers are subtracted from right boundary since test data is
         # generated with open right boundary while `randint` works and
         # client reads data with closed right boundary.
-        start_ts_epoch = random.randint(
-            left_boundary_epoch, right_boundary_epoch - 2
+        start_ts_epoch = secrets.SystemRandom().randint(left_boundary_epoch, right_boundary_epoch - 2
         )
-        end_ts_epoch = random.randint(start_ts_epoch, right_boundary_epoch - 1)
+        end_ts_epoch = secrets.SystemRandom().randint(start_ts_epoch, right_boundary_epoch - 1)
         # Convert generated epochs to timestamps.
         start_ts = hdateti.convert_unix_epoch_to_timestamp(
             start_ts_epoch, unit="h"

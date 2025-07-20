@@ -7,7 +7,6 @@ import helpers.hpandas as hpandas
 import csv
 import dataclasses
 import logging
-import random
 import re
 from typing import Any, Dict, Iterable, Iterator, List, Optional, Tuple, Union
 
@@ -19,6 +18,7 @@ import helpers.hdatetime as hdateti
 import helpers.hdbg as hdbg
 import helpers.hprint as hprint
 import helpers.hsystem as hsystem
+import secrets
 
 # Avoid the following dependency from other `helpers` modules to prevent import cycles.
 # import helpers.hs3 as hs3
@@ -1724,8 +1724,8 @@ def subset_df(df: pd.DataFrame, nrows: int, seed: int = 42) -> pd.DataFrame:
     hdbg.dassert_lte(1, nrows)
     hdbg.dassert_lte(nrows, df.shape[0])
     idx = list(range(df.shape[0]))
-    random.seed(seed)
-    random.shuffle(idx)
+    secrets.SystemRandom().seed(seed)
+    secrets.SystemRandom().shuffle(idx)
     idx = sorted(idx[nrows:])
     return df.iloc[idx]
 
