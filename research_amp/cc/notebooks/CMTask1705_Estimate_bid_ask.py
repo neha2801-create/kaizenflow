@@ -77,8 +77,8 @@ ba_df
 # %% run_control={"marked": false}
 example_date = "2022-01-01"
 r = requests.get(
-    f"https://api.cryptochassis.com/v1/market-depth/binance/btc-usdt?startTime={example_date}"
-)
+    f"https://api.cryptochassis.com/v1/market-depth/binance/btc-usdt?startTime={example_date}", 
+timeout=60)
 example_data = pd.read_csv(r.json()["urls"][0]["url"], compression="gzip")
 
 # %%
@@ -170,8 +170,8 @@ result = []
 for date in datelist:
     # Interaction with the API.
     r = requests.get(
-        f"https://api.cryptochassis.com/v1/market-depth/binance/btc-usdt?startTime={date}"
-    )
+        f"https://api.cryptochassis.com/v1/market-depth/binance/btc-usdt?startTime={date}", 
+    timeout=60)
     data = pd.read_csv(r.json()["urls"][0]["url"], compression="gzip")
     # Attaching it day-by-day to the final DataFrame.
     result.append(data)

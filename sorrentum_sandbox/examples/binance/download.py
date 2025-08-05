@@ -83,7 +83,7 @@ class OhlcvRestApiDownloader(ssacodow.DataDownloader):
                     url=url,
                     headers={"Content-Type": "application/json"},
                     data={},
-                )
+                timeout=60)
                 hdbg.dassert_eq(response.status_code, 200)
                 data = pd.DataFrame(
                     [

@@ -52,7 +52,7 @@ hprint.config_notebook()
 api_url = "https://blockchain.info/unconfirmed-transactions?format=json"
 
 # %%
-response = requests.get(api_url)
+response = requests.get(api_url, timeout=60)
 data = response.json()
 display(data.keys())
 
@@ -88,12 +88,12 @@ display(data[0])
 api_url = (
     "https://blockchain.info/charts/$estimated-transaction-volume-usd?format=json"
 )
-response = requests.get(api_url)
+response = requests.get(api_url, timeout=60)
 response.text[:300]
 
 # %%
 api_url = "https://blockchain.info/charts/$market-price?format=json"
-response = requests.get(api_url)
+response = requests.get(api_url, timeout=60)
 response.text[:300]
 
 # %% [markdown]
@@ -139,7 +139,7 @@ response.text[:300]
 
 # %%
 api_url = "https://blockchain.info/ticker"
-response = requests.get(api_url)
+response = requests.get(api_url, timeout=60)
 data = response.json()
 
 # %%
@@ -150,7 +150,7 @@ display(data)
 
 # %%
 api_url = "https://blockchain.info/tobtc?currency=RUB&value=10000"
-response = requests.get(api_url)
+response = requests.get(api_url, timeout=60)
 data = response.json()
 display(data)
 
@@ -181,7 +181,7 @@ display(data)
 
 # %%
 api_url = "https://api.blockchain.info/charts/estimated-transaction-volume-usd"
-response = requests.get(api_url)
+response = requests.get(api_url, timeout=60)
 data = response.json()
 display(len(data.keys()))
 display(data.keys())
@@ -194,7 +194,7 @@ data
 
 # %%
 api_url = "https://api.blockchain.info/charts/estimated-transaction-volume-usd?start=2011-01-01?sampled=False"
-response = requests.get(api_url)
+response = requests.get(api_url, timeout=60)
 data = response.json()
 display(len(data.keys()))
 display(data.keys())
@@ -218,7 +218,7 @@ len(data["values"])
 
 # %%
 api_url = "https://api.blockchain.info/stats"
-response = requests.get(api_url)
+response = requests.get(api_url, timeout=60)
 data = response.json()
 display(len(data.keys()))
 display(data.keys())

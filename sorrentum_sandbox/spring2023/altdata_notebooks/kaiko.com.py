@@ -37,7 +37,7 @@ api_url = "https://reference-data-api.kaiko.io/"
 # %%
 # Assets.
 assets_url = api_url + "v1/assets/"
-response = requests.get(assets_url)
+response = requests.get(assets_url, timeout=60)
 data = response.json()
 data.keys()
 
@@ -52,7 +52,7 @@ data["data"][410:415]
 # %%
 # Exchanges.
 exchanges_url = api_url + "v1/exchanges/"
-response = requests.get(exchanges_url)
+response = requests.get(exchanges_url, timeout=60)
 data = response.json()
 data.keys()
 
@@ -66,7 +66,7 @@ data["data"][30:40]
 # Instruments.
 # https://docs.kaiko.com/#instruments
 instr_url = api_url + "v1/instruments/"
-response = requests.get(instr_url)
+response = requests.get(instr_url, timeout=60)
 data = response.json()
 data.keys()
 
@@ -80,7 +80,7 @@ data["data"][100:105]
 # %%
 # Pools.
 pools_url = api_url + "v1/pools/"
-response = requests.get(pools_url)
+response = requests.get(pools_url, timeout=60)
 data = response.json()
 data.keys()
 

@@ -40,7 +40,7 @@ def _extract_file_url_from_historical_page(page_url: str) -> str:
 
     :return: file url, from example: http://www.kibot.com/Files/2/Top_50_Stocks_Intraday.txt
     """
-    response = requests.get(url=page_url)
+    response = requests.get(url=page_url, timeout=60)
     page_soup = bs4.BeautifulSoup(response.content, "html.parser")
     file_link = page_soup.select('p a[href^="../Files"]')[0].attrs["href"]
     return uparse.urljoin(page_url, file_link)
@@ -53,7 +53,7 @@ def _extract_ticker_page_urls() -> List[str]:
     :return: list of ticker page links, for example:
         ['http://www.kibot.com/Historical_Data/Top_50_Stocks_Historical_Intraday_Data.aspx', ...]
     """
-    response = requests.get(url=imkimecon.ENDPOINT + "buy.aspx")
+    response = requests.get(url=imkimecon.ENDPOINT + "buy.aspx", timeout=60)
     soup = bs4.BeautifulSoup(response.content, "html.parser")
 
     available_data_sets = soup.select("strong a")
@@ -88,7 +88,7 @@ class DownloadTickerListsCommand(imkibacom.KibotCommand):
             _LOG.info("Cleaned up file name: %s", file_name)
 
             # Download file.
-            response = requests.get(file_url)
+            response = requests.get(file_url, timeout=60)
             hdbg.dassert_eq(response.status_code, 200)
             file_path = os.path.join(
                 self.args.tmp_dir, imkimecon.TICKER_LISTS_SUB_DIR, file_name
