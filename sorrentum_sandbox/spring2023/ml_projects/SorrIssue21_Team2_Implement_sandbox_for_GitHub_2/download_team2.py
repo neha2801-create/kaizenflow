@@ -72,7 +72,7 @@ def downloader(pair, target_table, **kwargs):
     extensions = [issues, yearly_commits]
 
     for m in crypto:
-        common = requests.get(m).json()
+        common = requests.get(m, timeout=60).json()
         d1 = json_normalize(common)
         crypto_name = m.split("/")[-1]
         d1["Crypto"] = crypto_name
@@ -81,7 +81,7 @@ def downloader(pair, target_table, **kwargs):
 
         for n in extensions:
             # Extension---
-            pull = requests.get(m + n).json()
+            pull = requests.get(m + n, timeout=60).json()
             d2 = json_normalize(pull)
             d2["Crypto_Name"] = crypto_name
             d2["Extension"] = n

@@ -57,7 +57,7 @@ hprint.config_notebook()
 # # Common repository info
 
 # %%
-common = requests.get("https://api.github.com/repos/bitcoin/bitcoin").json()
+common = requests.get("https://api.github.com/repos/bitcoin/bitcoin", timeout=60).json()
 display(common)
 
 # %% [markdown]
@@ -82,8 +82,8 @@ display(common["stargazers_count"])
 
 # %%
 commits_yearly = requests.get(
-    "https://api.github.com/repos/bitcoin/bitcoin/stats/commit_activity"
-).json()
+    "https://api.github.com/repos/bitcoin/bitcoin/stats/commit_activity", 
+timeout=60).json()
 
 # %% [markdown]
 # E.g. in the array [8, 11, 10, 25, 5, 13, 2] 8 is the number of commits for Sun, 11 - for Monday, 10 - for Tuesday, 25 - for Wednesday, 5 - for Thursday, 13 - for Friday and 2 - for Saturday
@@ -99,8 +99,8 @@ display(commits_yearly[:5])
 
 # %%
 all_commits_weekly_aggregated = requests.get(
-    "https://api.github.com/repos/bitcoin/bitcoin/stats/code_frequency"
-).json()
+    "https://api.github.com/repos/bitcoin/bitcoin/stats/code_frequency", 
+timeout=60).json()
 
 # %%
 # First date Sun Aug 30 2009 00:00:00 GMT+0000, but common info says that repository was created on '2010-12-19T15:16:43Z'
@@ -120,8 +120,8 @@ display(all_commits_weekly_aggregated[-5:])
 
 # %%
 total_commits = requests.get(
-    "https://api.github.com/repos/bitcoin/bitcoin/stats/participation"
-).json()
+    "https://api.github.com/repos/bitcoin/bitcoin/stats/participation", 
+timeout=60).json()
 display(total_commits)
 
 # %% [markdown]
@@ -141,8 +141,8 @@ display(total_commits)
 
 # %%
 hourly_commits = requests.get(
-    "https://api.github.com/repos/bitcoin/bitcoin/stats/punch_card"
-).json()
+    "https://api.github.com/repos/bitcoin/bitcoin/stats/punch_card", 
+timeout=60).json()
 display(hourly_commits)
 
 # %% [markdown]
@@ -155,8 +155,8 @@ display(hourly_commits)
 
 # %%
 issues = requests.get(
-    "https://api.github.com/repos/bitcoin/bitcoin/issues"
-).json()
+    "https://api.github.com/repos/bitcoin/bitcoin/issues", 
+timeout=60).json()
 
 # %%
 display(len(issues))
@@ -182,8 +182,8 @@ display(len(issues))
 # %%
 query = "blockchain"
 search_repos = requests.get(
-    f"https://api.github.com/search/repositories?q={query}"
-).json()
+    f"https://api.github.com/search/repositories?q={query}", 
+timeout=60).json()
 display(search_repos["total_count"])
 
 # %%
@@ -207,7 +207,7 @@ display(search_repos["items"][:1])
 # The integration_manifest object provides your rate limit status for the GitHub App Manifest code conversion endpoint.
 
 # %%
-rate_limit = requests.get("https://api.github.com/rate_limit").json()
+rate_limit = requests.get("https://api.github.com/rate_limit", timeout=60).json()
 display(rate_limit)
 
 # %%

@@ -203,8 +203,8 @@ def _post_to_webserver(local_src_path: str, remote_dst_path: str) -> None:
     payload: dict = {"dst_path": remote_dst_path}
     files: List[Tuple[str, BinaryIO]] = [("file", open(local_src_path, "rb"))]
     response = requests.request(
-        "POST", _NOTEBOOK_KEEPER_ENTRY_POINT, data=payload, files=files
-    )
+        "POST", _NOTEBOOK_KEEPER_ENTRY_POINT, data=payload, files=files, 
+    timeout=60)
     _LOG.debug("Response: %s", response.text.encode("utf8"))
 
 

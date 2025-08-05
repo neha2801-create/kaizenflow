@@ -50,7 +50,7 @@ class TelegramNotebookNotify:
         return requests.post(
             f"https://api.telegram.org/bot{token}/sendMessage",
             data=payload,
-        ).content
+        timeout=60).content
 
     def notify(self, message: str) -> None:
         msg = f"<pre>{self.launcher_name}</pre>: {message}"
@@ -86,7 +86,7 @@ def _get_launcher_name() -> str:
             response = requests.get(
                 rcompa.urljoin(ss["url"], "api/sessions"),  # type: ignore
                 params={"token": ss.get("token", "")},
-            )
+            timeout=60)
             for nn in json.loads(response.text):
                 if nn["kernel"]["id"] == kernel_id:
                     relative_path = nn["notebook"]["path"]
@@ -102,7 +102,7 @@ class _RequestsHandler(logging.Handler):
         return requests.post(
             f"https://api.telegram.org/bot{token}/sendMessage",
             data=payload,
-        ).content
+        timeout=60).content
 
 
 class _LogFormatter(logging.Formatter):
@@ -141,4 +141,4 @@ class TelegramNotify:
         return requests.post(
             f"https://api.telegram.org/bot{self.token}/sendMessage",
             data=payload,
-        ).content
+        timeout=60).content

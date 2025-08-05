@@ -39,7 +39,7 @@ class CheckReadtimeFeedCommand(imkibacom.KibotCommand):
                 params=dict(
                     action="history", symbol="MSFT", interval="1", period="2"
                 ),
-            )
+            timeout=60)
 
             print(f"received {len(response.text.split())} data points.")
             time.sleep(10)

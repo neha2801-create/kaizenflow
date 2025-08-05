@@ -124,7 +124,7 @@ class KibotCommand:
                 user=self.args.username,
                 password=self.args.password,
             ),
-        )
+        timeout=60)
         status_code = int(response.text.split()[0])
         accepted_status_codes = [
             200,  # login successfuly
